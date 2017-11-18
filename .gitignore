@@ -1,4 +1,5 @@
 /.idea/workspace.xml
 /node_modules
+/public/dashboard.js
 .env*
 !.env.example

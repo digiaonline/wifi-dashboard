@@ -4,7 +4,11 @@
   "main": "index.js",
   "author": "Sam Stenvall <sam.stenvall@digia.com>",
   "license": "MIT",
+  "scripts": {
+    "compile": "browserify src/client/dashboard.js -o public/dashboard.js"
+  },
   "dependencies": {
+    "browserify": "^14.5.0",
     "dotenv": "^4.0.0",
     "express": "^4.16.2",
     "mikronode-ng": "^1.0.11",
