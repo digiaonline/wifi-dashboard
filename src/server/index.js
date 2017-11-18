@@ -4,7 +4,7 @@ const http = require('http');
 const WebSocket = require('ws');
 
 const ErrorHandler = require('./errorHandler');
-const Dashboard = require('./dashboard');
+const Dashboard = require('../common/dashboard');
 const Device = require('./device');
 const Interface = require('./interface');
 const configuration = require('../../config/config');
