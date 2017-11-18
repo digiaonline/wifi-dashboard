@@ -1,3 +1,3 @@
 require('dotenv').config();
 
-require('./src/index.js');
+require('./src/server/index.js');

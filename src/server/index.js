@@ -7,7 +7,7 @@ const ErrorHandler = require('./errorHandler');
 const Dashboard = require('./dashboard');
 const Device = require('./device');
 const Interface = require('./interface');
-const configuration = require('../config/config');
+const configuration = require('../../config/config');
 
 const errorHandler = new ErrorHandler();
 const dashboard = new Dashboard();
