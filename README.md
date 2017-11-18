@@ -19,3 +19,4 @@ The dashboard is now available on `http://localhost:3000`. You can change the po
 
 * MikroNode for communicating with the wireless access points
 * Express for the web server
+* WebSockets for broadcasting the dashboard data to connected clients

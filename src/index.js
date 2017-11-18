@@ -1,6 +1,7 @@
 const MikroNode = require('mikronode-ng');
-const observe = require('observe');
 const express = require('express');
+const http = require('http');
+const WebSocket = require('ws');
 
 const ErrorHandler = require('./errorHandler');
 const Dashboard = require('./dashboard');
@@ -11,21 +12,15 @@ const configuration = require('../config/config');
 const errorHandler = new ErrorHandler();
 const dashboard = new Dashboard();
 
-// Configure the web server
+// Configure the web and WebSocket server
 const app = express();
+const server = http.createServer(app);
+const wss = new WebSocket.Server({server});
 app.use(express.static('public'));
 
 // Configure the dashboard
 configuration.devices.forEach(function(device) {
   dashboard.devices.push(new Device(device.name, device.address, device.username, device.password));
-});
-
-// Observe changes to the dashboard
-const observedDashboard = observe(dashboard);
-observedDashboard.on('change', function() {
-  console.log(dashboard);
-
-  // TODO: Send whole thing over WebSocket to all connected clients
 });
 
 /**
@@ -53,8 +48,6 @@ const updateInterfaceStatistics = function(connection, device) {
       iface.rxBps = value['rx-bits-per-second'];
       iface.txBps = value['tx-bits-per-second'];
     });
-
-    observedDashboard.set('lastUpdated', new Date());
   }, function rejected(reason) {
     errorHandler.handleError(reason);
   });
@@ -82,10 +75,19 @@ const updateConnectedClients = function(connection, device) {
         iface.connectedClients.push(value);
       }
     });
-
-    observedDashboard.set('lastUpdated', new Date());
   }, function rejected(reason) {
     errorHandler.handleError(reason);
+  });
+};
+
+/**
+ * Broadcasts the dashboard as JSON to
+ */
+const broadcastDashboard = function() {
+  wss.clients.forEach(function(client) {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(JSON.stringify(dashboard));
+    }
   });
 };
 
@@ -108,5 +110,8 @@ dashboard.devices.forEach(function(device) {
   });
 });
 
+// Broadcast the dashboard to connected clients
+setInterval(broadcastDashboard, 1000);
+
 // Start the web server
-app.listen(process.env.PORT);
+server.listen(process.env.PORT);
