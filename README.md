@@ -13,6 +13,9 @@ Self-contained dashboard interface for the office wifi
 * Copy `.env.example` to `.env`, add proper credentials
 * Run `node index.js`
 
+The dashboard is now available on `http://localhost:3000`. You can change the port used by modifying your `.env` file.
+
 ## Technology
 
 * MikroNode for communicating with the wireless access points
+* Express for the web server

@@ -1,5 +1,6 @@
 const MikroNode = require('mikronode-ng');
-const observe = require('observe')
+const observe = require('observe');
+const express = require('express');
 
 const ErrorHandler = require('./errorHandler');
 const Dashboard = require('./dashboard');
@@ -10,6 +11,10 @@ const configuration = require('../config/config');
 const errorHandler = new ErrorHandler();
 const dashboard = new Dashboard();
 
+// Configure the web server
+const app = express();
+app.use(express.static('public'));
+
 // Configure the dashboard
 configuration.devices.forEach(function(device) {
   dashboard.devices.push(new Device(device.name, device.address, device.username, device.password));
@@ -19,7 +24,7 @@ configuration.devices.forEach(function(device) {
 const observedDashboard = observe(dashboard);
 observedDashboard.on('change', function() {
   console.log(dashboard);
- 
+
   // TODO: Send whole thing over WebSocket to all connected clients
 });
 
@@ -103,3 +108,5 @@ dashboard.devices.forEach(function(device) {
   });
 });
 
+// Start the web server
+app.listen(process.env.PORT);
