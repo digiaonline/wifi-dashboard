@@ -6,16 +6,25 @@
     <link rel="stylesheet" type="text/css" href="styles.css"/>
 </head>
 <body>
-    <h1>Wifi dashboard</h1>
-
     <div id="app" v-cloak>
-        <h1>Devices</h1>
-        <ul>
-            <li v-for="device in dashboard.devices">
-                Name: {{ device.name }}<br/>
-                Address: {{ device.address }}
-            </li>
-        </ul>
+        <div class="devices">
+            <div class="device" v-for="device in dashboard.devices">
+                <p class="device-information">
+                    {{ device.name }} ({{ device.address }})
+                </p>
+                <div class="interfaces">
+                    <div class="interface" v-for="interface in device.interfaces">
+                        <p class="interface-information">
+                            {{ interface.name }}
+                        </p>
+
+                        <p class="big-number">
+                            {{ interface.connectedClients.length }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script type="text/javascript" src="dashboard.js"></script>
