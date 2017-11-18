@@ -7,11 +7,15 @@
   "scripts": {
     "compile": "browserify src/client/dashboard.js -o public/dashboard.js"
   },
+  "browser": {
+    "vue": "vue/dist/vue.common.js"
+  },
   "dependencies": {
     "browserify": "^14.5.0",
     "dotenv": "^4.0.0",
     "express": "^4.16.2",
     "mikronode-ng": "^1.0.11",
+    "vue": "^2.5.5",
     "ws": "^3.3.1"
   }
 }

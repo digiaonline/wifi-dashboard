@@ -3,11 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Wifi dashboard</title>
+    <link rel="stylesheet" type="text/css" href="styles.css"/>
 </head>
 <body>
     <h1>Wifi dashboard</h1>
-    <p>This is the wifi dashboard</p>
-    
+
+    <div id="app" v-cloak>
+        <h1>Devices</h1>
+        <ul>
+            <li v-for="device in dashboard.devices">
+                Name: {{ device.name }}<br/>
+                Address: {{ device.address }}
+            </li>
+        </ul>
+    </div>
+
     <script type="text/javascript" src="dashboard.js"></script>
 </body>
 </html>
