@@ -1,6 +1,6 @@
 class Interface {
   constructor(name) {
-    this.name = name
+    this.name = name;
     this.connectedClients = [];
   }
 }
