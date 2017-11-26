@@ -31,6 +31,17 @@ let configuration = {
           'wlan1-nord-guest',
         ]
       }
+    },
+    {
+      'name': 'crs-mainrack',
+      'address': '10.5.0.1',
+      'username': process.env.CRS_MAINRACK_USER,
+      'password': process.env.CRS_MAINRACK_PASSWORD,
+      'interfaceGroups': {
+        'WAN': [
+          'br1-wan'
+        ]
+      }
     }
   ]
 };
