@@ -44,7 +44,7 @@ configuration.devices.forEach(function(device) {
  * @param device
  */
 const updateInterfaceStatistics = function(connection, device) {
-  const parameters = ['=interface=wlan1,wlan1-nord-guest,wlan2,wlan2-nord-guest', '=once'];
+  const parameters = ['=interface=' + device.getInterfaceString(), '=once'];
 
   connection.getCommandPromise('/interface/monitor-traffic', parameters).then(function resolved(values) {
     values.forEach(function(value) {
