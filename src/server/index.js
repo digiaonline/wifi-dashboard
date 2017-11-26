@@ -59,6 +59,8 @@ const updateInterfaceStatistics = function(connection, device) {
           iface.rxBps = parseInt(value['rx-bits-per-second']);
           iface.txBps = parseInt(value['tx-bits-per-second']);
         }
+
+        interfaceGroup.updateInterfaceAggregates();
       });
     });
   }, function rejected(reason) {
