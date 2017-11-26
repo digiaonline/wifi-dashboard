@@ -56,8 +56,8 @@ const updateInterfaceStatistics = function(connection, device) {
 
         // If the interface was found in this group, update the statistics
         if (iface) {
-          iface.rxBps = value['rx-bits-per-second'];
-          iface.txBps = value['tx-bits-per-second'];
+          iface.rxBps = parseInt(value['rx-bits-per-second']);
+          iface.txBps = parseInt(value['tx-bits-per-second']);
         }
       });
     });
