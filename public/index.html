@@ -7,28 +7,26 @@
 </head>
 <body>
     <div id="app" v-cloak>
-        <div class="devices">
-            <div class="device" v-for="device in dashboard.devices">
-                <p class="device-information">
-                    {{ device.name }} ({{ device.address }})
+        <div class="device" v-bind:class="device.name" v-for="device in dashboard.devices">
+            <div class="interface-group" v-for="interfaceGroup in device.interfaceGroups">
+                <p class="interface-group-information">
+                    {{ interfaceGroup.name }}
                 </p>
 
-                <div class="interface-group" v-for="interfaceGroup in device.interfaceGroups">
-                    <p class="interface-group-information">
-                        {{ interfaceGroup.name }}
-                    </p>
+                <div class="interfaces">
+                    <div class="interface" v-bind:class="interface.name" v-for="interface in interfaceGroup.interfaces">
+                        <p class="interface-information">
+                            {{ interface.name }}
+                        </p>
 
-                    <div class="interfaces">
-                        <div class="interface" v-for="interface in interfaceGroup.interfaces">
-                            <p class="interface-information">
-                                {{ interface.name }}
-                            </p>
-
-                            <p class="big-number">
-                                {{ interface.connectedClients.length }}
-                            </p>
-                        </div>
+                        <p class="big-number">
+                            {{ interface.connectedClients.length }}
+                        </p>
                     </div>
+                </div>
+
+                <div class="statistics">
+                    Statistics
                 </div>
             </div>
         </div>

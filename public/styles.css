@@ -2,33 +2,54 @@
     display: none;
 }
 
-body {
+html, body {
     width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
 }
 
-#app {
-
+p {
+    margin: 0;
 }
 
-.devices {
+#app {
+    width: 100%;
+    height: 100%;
 
+    background-color: aquamarine;
 }
 
 .device {
     height: 33%;
+
+    background-color: coral;
     clear: both;
 }
 
-.interfaces {
+.interface-group {
+    clear: both;
+    height: 50%;
+}
 
+.device.crs-mainrack .interface-group {
+    height: 100%;
+}
+
+.interfaces {
+    width: 66%;
+    float: left;
 }
 
 .interface {
     float: left;
-    width: 150px;
-    height: 150px;
-    border: 1px solid gray;
+    width: 50%;
+    height: 100%;
+    background-color: greenyellow;
+}
+
+.statistics {
+    width: 34%;
+    float: left;
+    background-color: darkmagenta;
 }
