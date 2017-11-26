@@ -1,10 +1,10 @@
 class Device {
-  constructor(name, address, username, password) {
+  constructor(name, address, username, password, interfaceGroups) {
     this.name = name;
     this.address = address;
     this.username = username;
     this.password = password;
-    this.interfaces = [];
+    this.interfaceGroups = interfaceGroups;
   }
 }
 

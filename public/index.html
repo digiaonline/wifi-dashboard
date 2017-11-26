@@ -12,15 +12,22 @@
                 <p class="device-information">
                     {{ device.name }} ({{ device.address }})
                 </p>
-                <div class="interfaces">
-                    <div class="interface" v-for="interface in device.interfaces">
-                        <p class="interface-information">
-                            {{ interface.name }}
-                        </p>
 
-                        <p class="big-number">
-                            {{ interface.connectedClients.length }}
-                        </p>
+                <div class="interface-group" v-for="interfaceGroup in device.interfaceGroups">
+                    <p class="interface-group-information">
+                        {{ interfaceGroup.name }}
+                    </p>
+
+                    <div class="interfaces">
+                        <div class="interface" v-for="interface in interfaceGroup.interfaces">
+                            <p class="interface-information">
+                                {{ interface.name }}
+                            </p>
+
+                            <p class="big-number">
+                                {{ interface.connectedClients.length }}
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>

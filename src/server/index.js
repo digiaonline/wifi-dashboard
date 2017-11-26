@@ -6,6 +6,7 @@ const WebSocket = require('ws');
 const ErrorHandler = require('./errorHandler');
 const Dashboard = require('../common/dashboard');
 const Device = require('./device');
+const InterfaceGroup = require('./interfaceGroup');
 const Interface = require('./interface');
 const configuration = require('../../config/config');
 
@@ -20,7 +21,21 @@ app.use(express.static('public'));
 
 // Configure the dashboard
 configuration.devices.forEach(function(device) {
-  dashboard.devices.push(new Device(device.name, device.address, device.username, device.password));
+  // Construct the interface groups
+  const interfaceGroups = [];
+
+  Object.keys(device.interfaceGroups).forEach(function(groupName) {
+    const interfaceGroup = new InterfaceGroup(groupName);
+
+    device.interfaceGroups[groupName].forEach(function(interfaceName) {
+      interfaceGroup.interfaces.push(new Interface(interfaceName));
+    });
+
+    interfaceGroups.push(interfaceGroup);
+  });
+
+  // Add the device to the dashboard
+  dashboard.devices.push(new Device(device.name, device.address, device.username, device.password, interfaceGroups));
 });
 
 /**
@@ -32,21 +47,19 @@ const updateInterfaceStatistics = function(connection, device) {
   const parameters = ['=interface=wlan1,wlan1-nord-guest,wlan2,wlan2-nord-guest', '=once'];
 
   connection.getCommandPromise('/interface/monitor-traffic', parameters).then(function resolved(values) {
-    let interfaces = device.interfaces;
-
     values.forEach(function(value) {
-      // Update or create the interface
-      let iface = interfaces.find(function(i) {
-        return i.name === value.name;
+      // Go through the interface groups and update the respective interface statistics
+      device.interfaceGroups.forEach(function(interfaceGroup) {
+        let iface = interfaceGroup.interfaces.find(function(i) {
+          return i.name === value.name;
+        });
+
+        // If the interface was found in this group, update the statistics
+        if (iface) {
+          iface.rxBps = value['rx-bits-per-second'];
+          iface.txBps = value['tx-bits-per-second'];
+        }
       });
-
-      if (!iface) {
-        iface = new Interface(value.name);
-        interfaces.push(iface)
-      }
-
-      iface.rxBps = value['rx-bits-per-second'];
-      iface.txBps = value['tx-bits-per-second'];
     });
   }, function rejected(reason) {
     errorHandler.handleError(reason);
@@ -60,20 +73,22 @@ const updateInterfaceStatistics = function(connection, device) {
  */
 const updateConnectedClients = function(connection, device) {
   connection.getCommandPromise('/interface/wireless/registration-table/print').then(function resolved(values) {
-    // Reset counters
-    device.interfaces.forEach(function(iface) {
-      iface.connectedClients = [];
-    });
-
-    // Update with new values
-    values.forEach(function(value) {
-      let iface = device.interfaces.find(function(i) {
-        return i.name === value.interface;
+    device.interfaceGroups.forEach(function(interfaceGroup) {
+      // Reset counters
+      interfaceGroup.interfaces.forEach(function(iface) {
+        iface.connectedClients = [];
       });
 
-      if (iface) {
-        iface.connectedClients.push(value);
-      }
+      // Update with new values
+      values.forEach(function(value) {
+        let iface = interfaceGroup.interfaces.find(function(i) {
+          return i.name === value.interface;
+        });
+
+        if (iface) {
+          iface.connectedClients.push(value);
+        }
+      });
     });
   }, function rejected(reason) {
     errorHandler.handleError(reason);
