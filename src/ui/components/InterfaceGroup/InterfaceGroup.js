@@ -4,11 +4,13 @@ import moment from 'moment'
 import Interface from "../Interface/Interface";
 import css from "./interfaceGroup.css";
 
+const MAX_CHART_DATAPOINTS = 30;
+
 class InterfaceGroup extends Component {
   state = {
     interfaceData: this.props.interfaceData,
-    rxBps: [],
-    txBps: []
+    rxBps: new Array(MAX_CHART_DATAPOINTS).fill({ bits: 0, time: '' }),
+    txBps: new Array(MAX_CHART_DATAPOINTS).fill({ bits: 0, time: '' })
   };
 
   // componentDidMount() {
@@ -21,26 +23,26 @@ class InterfaceGroup extends Component {
     const {rxBps, txBps } = this.state
     let time = moment().format('H:mm:ss')
 
-    if ( rxBps.length < 11 )  {
+    if ( rxBps.length < MAX_CHART_DATAPOINTS )  {
         let rxBpsTemp = rxBps.slice()
-        rxBpsTemp.push({ bites: nextProps.interfaceData.rxBps, time })
+        rxBpsTemp.push({ bits: nextProps.interfaceData.rxBps, time })
         this.setState({rxBps: rxBpsTemp})
     }  else {
         let rxBpsTemp = rxBps.slice()
         rxBpsTemp.splice(0, 1)
-        rxBpsTemp.push({ bites: nextProps.interfaceData.rxBps, time })
+        rxBpsTemp.push({ bits: nextProps.interfaceData.rxBps, time })
         this.setState({rxBps: rxBpsTemp})
     }
    
     
-    if ( txBps.length < 11 )  {
+    if ( txBps.length < MAX_CHART_DATAPOINTS )  {
         let txBpsTemp = txBps.slice()
-        txBpsTemp.push({ bites: nextProps.interfaceData.txBps, time })
+        txBpsTemp.push({ bits: nextProps.interfaceData.txBps, time })
         this.setState({ txBps: txBpsTemp })
     }  else {
         let txBpsTemp = txBps.slice()
         txBpsTemp.shift()
-        txBpsTemp.push({ bites: nextProps.interfaceData.txBps, time })
+        txBpsTemp.push({ bits: nextProps.interfaceData.txBps, time })
         this.setState({ txBps: txBpsTemp })
     }
 
@@ -55,12 +57,12 @@ class InterfaceGroup extends Component {
       let recieved = []
       rxBps.map(item => {
         labels.push(item.time)
-        recieved.push(item.bites)
+        recieved.push(item.bits)
       })
 
       let sent = []
       txBps.map(item => {
-        sent.push(item.bites)
+        sent.push(item.bits)
       })
 
       const options = {
@@ -70,7 +72,7 @@ class InterfaceGroup extends Component {
                 ticks: {
                     // Include a dollar sign in the ticks
                     callback: function(value, index, values) {
-                        return `${value} bites`;
+                        return `${value} bits`;
                     }
                 }
             }]
