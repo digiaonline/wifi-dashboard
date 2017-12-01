@@ -1,0 +1,14 @@
+.component {
+    border: 1px solid #eee;
+    padding: 20px;
+}
+
+.interfaces {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 20px;
+}
+
+.chart {
+    padding-top: 20px;
+}

@@ -1,5 +1,19 @@
 /.idea/workspace.xml
 /node_modules
-/public/dashboard.js
 .env*
 !.env.example
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.env
+.DS_Store
+
+npm-debug.log*
+yarn-debug.log*
+
+yarn-error.log*

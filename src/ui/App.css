@@ -1,0 +1,13 @@
+.App {
+  text-align: center;
+  padding: 60px;
+  height: 100vh;
+}
+
+.appLogo {
+  width: 200px;
+}
+
+.appTitle {
+  margin-bottom: 40px;
+}

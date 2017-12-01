@@ -4,11 +4,11 @@ const http = require('http');
 const WebSocket = require('ws');
 
 const ErrorHandler = require('./errorHandler');
-const Dashboard = require('../common/dashboard');
+const Dashboard = require('./dashboard');
 const Device = require('./device');
 const InterfaceGroup = require('./interfaceGroup');
 const Interface = require('./interface');
-const configuration = require('../../config/config');
+const configuration = require('../../config/server');
 
 const errorHandler = new ErrorHandler();
 const dashboard = new Dashboard();
