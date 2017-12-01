@@ -13,10 +13,13 @@ Make sure you're either at the office or connected to Nord VPN before proceeding
 
 * Run `yarn install`
 * Copy `.env.example` to `.env`, add proper credentials
-* Run `yarn run server` to start the server
-* Run `yarn start` to start webpack-dev-server
 
-The dashboard is now available on `http://localhost:3001`. The server is listening on `ws://localhost:3000`.
+## Running
+
+* Run `yarn server` to start the server. It will be listening on `ws://localhost:3000`.
+* Run `yarn start` to start webpack-dev-server. It will be listening on `http://localhost:3001`
+
+You can change the ports used by modifying your `.env` file.
 
 ## Technology
 
