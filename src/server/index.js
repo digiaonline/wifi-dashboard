@@ -131,4 +131,4 @@ dashboard.devices.forEach(function(device) {
 setInterval(broadcastDashboard, 1000);
 
 // Start the web server
-server.listen(process.env.PORT);
+server.listen(process.env.SERVER_PORT);
