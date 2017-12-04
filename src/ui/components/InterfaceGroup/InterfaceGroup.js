@@ -12,6 +12,17 @@ class InterfaceGroup extends Component {
     rxBps: new Array(MAX_CHART_DATAPOINTS).fill({ bits: 0, time: '' }),
     txBps: new Array(MAX_CHART_DATAPOINTS).fill({ bits: 0, time: '' })
   };
+  
+  formatBitrate = (value) => {
+    if(value < 1000) {
+      return `${value} bits`;
+    }
+    else if(value < 1000 * 1000) {
+      return `${Math.round(value / 1000)} kbit/s`;
+    }
+
+    return `${Math.round(value / 1000 / 1000)} Mbit/s`;
+  }
 
   // componentDidMount() {
   //     setInterval(() => this.forceUpdate(), 1000);
@@ -67,13 +78,12 @@ class InterfaceGroup extends Component {
 
       const options = {
         animation: false,
+        
         scales: {
             yAxes: [{
                 ticks: {
                     // Include a dollar sign in the ticks
-                    callback: function(value, index, values) {
-                        return `${value} bits`;
-                    }
+                    callback: this.formatBitrate
                 }
             }]
         }
@@ -132,14 +142,14 @@ class InterfaceGroup extends Component {
       <div className={css.component}>
         <h3>{this.state.interfaceData.name}</h3>
         <div className={css.interfaceData}>
-          {this.state.interfaceData.rxBps} / {this.state.interfaceData.txBps}
+          {this.formatBitrate(this.state.interfaceData.rxBps)} / {this.formatBitrate(this.state.interfaceData.txBps)}
           <div className={css.chart}>
             <Line data={data} options={options} />
           </div>
         </div>
         <div className={css.interfaces}>
           {this.state.interfaceData.interfaces.map(inrefaceData => {
-            return <Interface inrefaceData={inrefaceData} />;
+            return <Interface inrefaceData={inrefaceData} formatter={this.formatBitrate} />;
           })}
         </div>
       </div>
