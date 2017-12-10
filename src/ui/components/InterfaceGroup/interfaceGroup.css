@@ -1,14 +1,23 @@
+@import '../../styles/colors.css';
 .component {
-    border: 1px solid #eee;
-    padding: 20px;
+  border: 1px solid #eee;
+  padding: 20px;
 }
 
 .interfaces {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-column-gap: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 20px;
+}
+
+h3 {
+  color: var(--font-dark);
 }
 
 .chart {
-    padding-top: 20px;
+  padding-top: 20px;
+}
+
+.titleIcon {
+  margin-right: 5px;
 }

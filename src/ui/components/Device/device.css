@@ -1,17 +1,24 @@
+@import '../../styles/colors.css';
+
 .component {
-    border: 1px solid #eee;
-    padding: 20px;
+  border: 1px solid #eee;
+  padding: 20px;
 }
 
 .interfaces {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-column-gap: 20px;
-
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 20px;
 }
 
 h2 {
-    margin-top: 0;
-    text-align: left;
-    text-transform: uppercase;
+  font-size: 22px;
+  margin-top: 0;
+  text-align: left;
+  text-transform: uppercase;
+  color: var(--font-dark);
+}
+
+.titleIcon {
+  margin-right: 10px;
 }

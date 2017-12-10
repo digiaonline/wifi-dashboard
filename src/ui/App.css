@@ -1,3 +1,5 @@
+@import './styles/colors.css';
+
 .App {
   text-align: center;
   padding: 60px;
@@ -10,4 +12,5 @@
 
 .appTitle {
   margin-bottom: 40px;
+  color: var(--font-dark);
 }
