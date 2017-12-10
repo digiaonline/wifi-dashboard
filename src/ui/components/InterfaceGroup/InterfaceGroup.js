@@ -6,24 +6,23 @@ import FontAwesome from 'react-fontawesome'
 import faStyles from 'font-awesome/css/font-awesome.css'
 import css from './interfaceGroup.css'
 
-const MAX_CHART_DATAPOINTS = 30;
+const MAX_CHART_DATAPOINTS = 30
 
 class InterfaceGroup extends Component {
   state = {
     interfaceData: this.props.interfaceData,
     rxBps: new Array(MAX_CHART_DATAPOINTS).fill({ bits: 0, time: '' }),
-    txBps: new Array(MAX_CHART_DATAPOINTS).fill({ bits: 0, time: '' })
-  };
-  
-  formatBitrate = (value) => {
-    if(value < 1000) {
-      return `${value} bits`;
-    }
-    else if(value < 1000 * 1000) {
-      return `${Math.round(value / 1000)} kbit/s`;
+    txBps: new Array(MAX_CHART_DATAPOINTS).fill({ bits: 0, time: '' }),
+  }
+
+  formatBitrate = value => {
+    if (value < 1000) {
+      return `${value} bits`
+    } else if (value < 1000 * 1000) {
+      return `${Math.round(value / 1000)} kbit/s`
     }
 
-    return `${Math.round(value / 1000 / 1000)} Mbit/s`;
+    return `${Math.round(value / 1000 / 1000)} Mbit/s`
   }
 
   // componentDidMount() {
@@ -34,59 +33,60 @@ class InterfaceGroup extends Component {
     const { rxBps, txBps } = this.state
     let time = moment().format('H:mm:ss')
 
-    if ( rxBps.length < MAX_CHART_DATAPOINTS )  {
-        let rxBpsTemp = rxBps.slice()
-        rxBpsTemp.push({ bits: nextProps.interfaceData.rxBps, time })
-        this.setState({rxBps: rxBpsTemp})
-    }  else {
-        let rxBpsTemp = rxBps.slice()
-        rxBpsTemp.splice(0, 1)
-        rxBpsTemp.push({ bits: nextProps.interfaceData.rxBps, time })
-        this.setState({rxBps: rxBpsTemp})
+    if (rxBps.length < MAX_CHART_DATAPOINTS) {
+      let rxBpsTemp = rxBps.slice()
+      rxBpsTemp.push({ bits: nextProps.interfaceData.rxBps, time })
+      this.setState({ rxBps: rxBpsTemp })
+    } else {
+      let rxBpsTemp = rxBps.slice()
+      rxBpsTemp.splice(0, 1)
+      rxBpsTemp.push({ bits: nextProps.interfaceData.rxBps, time })
+      this.setState({ rxBps: rxBpsTemp })
     }
-   
-    
-    if ( txBps.length < MAX_CHART_DATAPOINTS )  {
-        let txBpsTemp = txBps.slice()
-        txBpsTemp.push({ bits: nextProps.interfaceData.txBps, time })
-        this.setState({ txBps: txBpsTemp })
-    }  else {
-        let txBpsTemp = txBps.slice()
-        txBpsTemp.shift()
-        txBpsTemp.push({ bits: nextProps.interfaceData.txBps, time })
-        this.setState({ txBps: txBpsTemp })
+
+    if (txBps.length < MAX_CHART_DATAPOINTS) {
+      let txBpsTemp = txBps.slice()
+      txBpsTemp.push({ bits: nextProps.interfaceData.txBps, time })
+      this.setState({ txBps: txBpsTemp })
+    } else {
+      let txBpsTemp = txBps.slice()
+      txBpsTemp.shift()
+      txBpsTemp.push({ bits: nextProps.interfaceData.txBps, time })
+      this.setState({ txBps: txBpsTemp })
     }
 
     this.setState({ interfaceData: nextProps.interfaceData })
   }
 
   render() {
-      const {rxBps, txBps} = this.state
-      
-      let labels = []
-      let recieved = []
-      rxBps.map(item => {
-        labels.push(item.time)
-        recieved.push(item.bits)
-      })
+    const { rxBps, txBps, interfaceData } = this.state
 
-      let sent = []
-      txBps.map(item => {
-        sent.push(item.bits)
-      })
+    let labels = []
+    let recieved = []
+    rxBps.map(item => {
+      labels.push(item.time)
+      recieved.push(item.bits)
+    })
 
-      const options = {
-        animation: false,
-        
-        scales: {
-            yAxes: [{
-                ticks: {
-                    // Include a dollar sign in the ticks
-                    callback: this.formatBitrate
-                }
-            }]
-        }
-      }
+    let sent = []
+    txBps.map(item => {
+      sent.push(item.bits)
+    })
+
+    const options = {
+      animation: false,
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              min: 0,
+              // Include a dollar sign in the ticks
+              callback: this.formatBitrate,
+            },
+          },
+        ],
+      },
+    }
     const data = {
       labels,
       datasets: [
@@ -150,7 +150,8 @@ class InterfaceGroup extends Component {
           {interfaceData.name}
         </h3>
         <div className={css.interfaceData}>
-          {this.formatBitrate(this.state.interfaceData.rxBps)} / {this.formatBitrate(this.state.interfaceData.txBps)}
+          {this.formatBitrate(this.state.interfaceData.rxBps)} /{' '}
+          {this.formatBitrate(this.state.interfaceData.txBps)}
           <div className={css.chart}>
             <Line data={data} options={options} />
           </div>

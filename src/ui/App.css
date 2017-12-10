@@ -3,7 +3,12 @@
 .App {
   text-align: center;
   padding: 60px;
-  height: 100vh;
+}
+
+@media (max-width: 1024px) {
+  .App {
+    padding: 15px;
+  }
 }
 
 .appLogo {

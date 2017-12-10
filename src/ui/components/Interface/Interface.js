@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome'
-import Modal from 'react-bootstrap/lib/Modal'
+import { Modal, Table } from 'react-bootstrap'
+
 import faStyles from 'font-awesome/css/font-awesome.css'
 import css from './interface.css'
 
@@ -43,19 +44,46 @@ class Interface extends Component {
               </span>
             </h4>
             <div>
-              <Modal show={this.state.showModal} onHide={this.close}>
+              <Modal
+                show={this.state.showModal}
+                onHide={this.close}
+                bsSize="large"
+              >
                 <Modal.Header closeButton>
-                  <Modal.Title>Modal heading</Modal.Title>
+                  <Modal.Title className={css.modalTitle}>
+                    {inrefaceData.name}
+                  </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  <h4>Text in a modal</h4>
-                  <p>
-                    Duis mollis, est non commodo luctus, nisi erat porttitor
-                    ligula.
-                  </p>
+                  <Table responsive striped bordered condensed hover>
+                    <thead>
+                      <tr>
+                        <th>Client's IP</th>
+                        <th>RX Rate</th>
+                        <th>TX Rate</th>
+                        <th>TX CCQ</th>
+                        <th>Uptime</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {connectedClients.map((client, index) => {
+                        return (
+                          <tr key={index}>
+                            <td>{client['last-ip']}</td>
+                            <td>{client['rx-rate']}</td>
+                            <td>{client['tx-rate']}</td>
+                            <td>{client['tx-ccq']}</td>
+                            <td>{client['uptime']}</td>
+                          </tr>
+                        )
+                      })}
+                    </tbody>
+                  </Table>
                 </Modal.Body>
                 <Modal.Footer>
-                  <button onClick={this.close}>Close</button>
+                  <button onClick={this.close} className={css.button}>
+                    Close
+                  </button>
                 </Modal.Footer>
               </Modal>
             </div>
