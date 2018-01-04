@@ -29,7 +29,6 @@ class Dashboard extends Component<Props, State> {
   }
 
   render () {
-    console.log(this.state);
     const {dashboard, error} = this.state
     if (error !== '') {
       return (
