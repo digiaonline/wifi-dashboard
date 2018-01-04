@@ -1,17 +1,18 @@
 //@flow
 
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import Device from '../Device/Device'
 import css from './dashboard.css'
 
 type State = {
-  dashboard: Array<any>,
-  ws: any
+  dashboard: Array<any>
 }
 
-class Dashboard extends Component<{}> {
-  state: State = {
-    dashboard: []
+type Props = { /* ... */ };
+
+class Dashboard extends Component<Props, State> {
+  state = {
+    dashboard: [],
   }
 
   componentDidMount() {

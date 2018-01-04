@@ -10,9 +10,13 @@ type State = {
   device: Object
 }
 
+type Props = {
+  device: Object,
+}
 
-class Device extends Component<> {
-  state: State = {
+
+class Device extends Component<Props, State> {
+  state = {
     device: this.props.device,
   }
 

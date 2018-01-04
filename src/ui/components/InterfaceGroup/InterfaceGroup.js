@@ -14,7 +14,12 @@ type State = {
   rxBps: Array<any>,
   txBps:  Array<any>
 }
-class InterfaceGroup extends Component<$FlowFixMeProps, State> {
+
+type Props = {
+  interfaceData: Object
+}
+
+class InterfaceGroup extends Component<Props, State> {
   state: State = {
     interfaceData: this.props.interfaceData,
     rxBps: new Array(MAX_CHART_DATAPOINTS).fill({ bits: 0, time: '' }),

@@ -7,12 +7,24 @@ import { Modal, Table } from 'react-bootstrap'
 import faStyles from 'font-awesome/css/font-awesome.css'
 import css from './interface.css'
 
-class Interface extends Component {
+type Props = {
+  inrefaceData: Object
+}
+
+type State = {
+  inrefaceData: {
+    connectedClients: Object,
+    name: string,
+  },
+  showModal: boolean,
+}
+
+class Interface extends Component<Props, State> {
   state = {
     inrefaceData: this.props.inrefaceData,
     showModal: false,
   }
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: Object) {
     this.setState({ inrefaceData: nextProps.inrefaceData })
   }
 
