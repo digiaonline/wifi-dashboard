@@ -1,15 +1,22 @@
+//@flow
+
 import React, { Component } from 'react'
 import InterfaceGroup from '../InterfaceGroup/InterfaceGroup'
 import css from './device.css'
 import FontAwesome from 'react-fontawesome'
 import faStyles from 'font-awesome/css/font-awesome.css'
 
-class Device extends Component {
-  state = {
+type State = {
+  device: Object
+}
+
+
+class Device extends Component<> {
+  state: State = {
     device: this.props.device,
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: Object) {
     this.setState({ device: nextProps.device })
   }
 

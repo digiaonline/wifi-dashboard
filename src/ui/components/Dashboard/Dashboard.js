@@ -1,10 +1,16 @@
+//@flow
+
 import React, {Component} from 'react'
 import Device from '../Device/Device'
 import css from './dashboard.css'
 
+type State = {
+  dashboard: Array<any>,
+  ws: any
+}
 
-class Dashboard extends Component {
-  state = {
+class Dashboard extends Component<{}> {
+  state: State = {
     dashboard: []
   }
 

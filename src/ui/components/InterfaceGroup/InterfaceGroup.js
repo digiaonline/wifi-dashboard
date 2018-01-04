@@ -1,3 +1,5 @@
+//@flow
+
 import React, { Component } from 'react'
 import { Line } from 'react-chartjs-2'
 import moment from 'moment'
@@ -7,15 +9,19 @@ import faStyles from 'font-awesome/css/font-awesome.css'
 import css from './interfaceGroup.css'
 
 const MAX_CHART_DATAPOINTS = 30
-
-class InterfaceGroup extends Component {
-  state = {
+type State = {
+  interfaceData: Object,
+  rxBps: Array<any>,
+  txBps:  Array<any>
+}
+class InterfaceGroup extends Component<$FlowFixMeProps, State> {
+  state: State = {
     interfaceData: this.props.interfaceData,
     rxBps: new Array(MAX_CHART_DATAPOINTS).fill({ bits: 0, time: '' }),
     txBps: new Array(MAX_CHART_DATAPOINTS).fill({ bits: 0, time: '' }),
   }
 
-  formatBitrate = value => {
+  formatBitrate = (value: number) => {
     if (value < 1000) {
       return `${value} bits`
     } else if (value < 1000 * 1000) {
@@ -25,11 +31,7 @@ class InterfaceGroup extends Component {
     return `${Math.round(value / 1000 / 1000)} Mbit/s`
   }
 
-  // componentDidMount() {
-  //     setInterval(() => this.forceUpdate(), 1000);
-  // }
-
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: Object) {
     const { rxBps, txBps } = this.state
     let time = moment().format('H:mm:ss')
 
@@ -63,13 +65,14 @@ class InterfaceGroup extends Component {
 
     let labels = []
     let recieved = []
-    rxBps.map(item => {
+    //Using forEach as we don't need to return anything
+    rxBps.forEach(item => {
       labels.push(item.time)
       recieved.push(item.bits)
     })
 
     let sent = []
-    txBps.map(item => {
+    txBps.forEach(item => {
       sent.push(item.bits)
     })
 
