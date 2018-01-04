@@ -5,7 +5,8 @@ import Device from '../Device/Device'
 import css from './dashboard.css'
 
 type State = {
-  dashboard: Array<any>
+  dashboard: Array<any>,
+  error: string
 }
 
 type Props = { /* ... */ };
@@ -13,6 +14,7 @@ type Props = { /* ... */ };
 class Dashboard extends Component<Props, State> {
   state = {
     dashboard: [],
+    error: ''
   }
 
   componentDidMount() {
@@ -27,15 +29,22 @@ class Dashboard extends Component<Props, State> {
   }
 
   render () {
-    const {dashboard} = this.state
-    return (
-      <div className={css.component}>
-        {dashboard[0] &&
-          dashboard[0].map(device => {
-            return <Device key={device.address} device={device} />
-        })}
-      </div>
-    )
+    console.log(this.state);
+    const {dashboard, error} = this.state
+    if (error !== '') {
+      return (
+        <h1>{error} (probably server isn't launched)</h1>
+      )
+    } else {
+      return (
+        <div className={css.component}>
+          {dashboard[0] &&
+            dashboard[0].map(device => {
+              return <Device key={device.address} device={device} />
+          })}
+        </div>
+      )
+    }
   }
 }
 
