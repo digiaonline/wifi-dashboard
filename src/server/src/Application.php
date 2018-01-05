@@ -203,15 +203,11 @@ class Application implements MessageComponentInterface
         foreach ($response->getAllOfType(Response::TYPE_DATA) as $item) {
             $connectedClient = new ConnectedClient();
 
-            $properties = [];
-
             foreach ($item as $name => $value) {
-                $properties[$name] = $value;
+                $connectedClient->setProperty($name, $value);
             }
 
-            $connectedClient->setProperties($properties);
-
-            $networkInterface = $device->getNetworkInterface($properties['interface']);
+            $networkInterface = $device->getNetworkInterface($connectedClient->getProperty('interface'));
 
             if ($networkInterface !== null) {
                 $networkInterface->addConnectedClient($connectedClient);

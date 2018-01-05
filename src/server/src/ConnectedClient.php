@@ -15,6 +15,16 @@ class ConnectedClient implements \JsonSerializable
     private $properties = [];
 
     /**
+     * @param string $name
+     *
+     * @return mixed|null
+     */
+    public function getProperty(string $name)
+    {
+        return $this->properties[$name] ?? null;
+    }
+
+    /**
      * @return array
      */
     public function getProperties(): array
@@ -23,13 +33,14 @@ class ConnectedClient implements \JsonSerializable
     }
 
     /**
-     * @param array $properties
+     * @param string $property
+     * @param mixed  $value
      *
      * @return $this
      */
-    public function setProperties(array $properties): ConnectedClient
+    public function setProperty(string $property, $value): ConnectedClient
     {
-        $this->properties = $properties;
+        $this->properties[$property] = $value;
 
         return $this;
     }
