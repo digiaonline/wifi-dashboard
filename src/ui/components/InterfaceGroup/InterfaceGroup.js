@@ -158,8 +158,22 @@ class InterfaceGroup extends Component<Props, State> {
           {interfaceData.name}
         </h3>
         <div className={css.interfaceData}>
-          {this.formatBitrate(this.state.interfaceData.rxBps)} /{' '}
-          {this.formatBitrate(this.state.interfaceData.txBps)}
+          <span className={css.stat}>
+            <FontAwesome
+              className={css.titleIcon}
+              name={interfaceData.name === 'WAN' ? 'long-arrow-down' : 'long-arrow-up' }
+              cssModule={faStyles}
+            />
+            {this.formatBitrate(this.state.interfaceData.rxBps)}
+          </span>
+          <span className={css.stat}>
+            <FontAwesome
+              className={css.titleIcon}
+              name={interfaceData.name === 'WAN' ? 'long-arrow-up' : 'long-arrow-down' }
+              cssModule={faStyles}
+            />
+            {this.formatBitrate(this.state.interfaceData.txBps)}
+          </span>
           <div className={css.chart}>
             <Line data={data} options={options} />
           </div>

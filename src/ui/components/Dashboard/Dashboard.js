@@ -1,6 +1,7 @@
 //@flow
 
 import React, { Component } from 'react'
+import ReconnectingWebSocket from 'reconnecting-websocket'
 import Device from '../Device/Device'
 import css from './dashboard.css'
 
@@ -18,14 +19,14 @@ class Dashboard extends Component<Props, State> {
   }
 
   componentDidMount() {
-    this.ws = new WebSocket('ws://localhost:3000')
-    this.ws.onmessage = e => this.setState({ dashboard: Object.values(JSON.parse(e.data)) })
-    this.ws.onerror = e => this.setState({ error: 'WebSocket error' })
-    this.ws.onclose = e => !e.wasClean && this.setState({ error: `WebSocket error: ${e.code} ${e.reason}` })
+    this.rws = new ReconnectingWebSocket('ws://localhost:3000')
+    this.rws.onmessage = e => this.setState({ dashboard: Object.values(JSON.parse(e.data)) })
+    this.rws.onerror = e => this.setState({ error: 'WebSocket error' })
+    this.rws.onclose = e => !e.wasClean && this.setState({ error: `WebSocket error: ${e.code} ${e.reason}` })
   }
 
   componentWillUnmount() {
-    this.ws.close()
+    this.rws.close()
   }
 
   render () {

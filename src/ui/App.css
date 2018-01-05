@@ -17,5 +17,6 @@
 
 .appTitle {
   margin-bottom: 40px;
+  font-size: 27px;
   color: var(--font-dark);
 }

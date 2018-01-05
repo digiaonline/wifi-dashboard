@@ -1,20 +1,9 @@
 @import '../../styles/colors.css';
 
-.component {
-  border: 1px solid #eee;
-  padding: 20px;
-}
-
 .interfaces {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 20px;
-}
-
-@media (max-width: 1100px) {
-  .interfaces {
-    grid-template-columns: 1fr;
-  }
 }
 
 h2 {
@@ -23,8 +12,23 @@ h2 {
   text-align: left;
   text-transform: uppercase;
   color: var(--font-dark);
+  margin-bottom: 20px;
 }
 
 .titleIcon {
   margin-right: 10px;
+}
+
+
+@media (max-width: 1100px) {
+  .interfaces {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 768px) {
+  .component {
+    border: 1px solid #eee;
+    padding: 20px;
+  }
 }
