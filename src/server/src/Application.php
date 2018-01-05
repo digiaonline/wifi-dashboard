@@ -26,12 +26,12 @@ class Application implements MessageComponentInterface
     private $configuration;
 
     /**
-     * @var \SplObjectStorage
+     * @var \SplObjectStorage a map where the key is a device and the value is an API client connected to it
      */
     private $devices;
 
     /**
-     * @var \SplObjectStorage
+     * @var \SplObjectStorage stores each connected WebSocket client
      */
     private $clients;
 
@@ -90,12 +90,14 @@ class Application implements MessageComponentInterface
         $loop = EventLoopFactory::create();
 
         $loop->addPeriodicTimer(1, function () {
+            // Update statistics for all devices
             /** @var Device $device */
             foreach ($this->devices as $device) {
                 $this->updateConnectedClients($device);
                 $this->updateInterfaceStatistics($device);
             }
 
+            // Broadcast updates to all connected clients
             /** @var ConnectionInterface $client */
             foreach ($this->clients as $client) {
                 $dashboard = new Dashboard($this->devices);
@@ -104,10 +106,14 @@ class Application implements MessageComponentInterface
             }
         });
 
-        $socket = new ServerSocket('[::]:' . getenv('SERVER_PORT'), $loop);
-
+        // Create a WebSocket server
         $ws = new WsServer($this);
         $ws->setStrictSubProtocolCheck(false);
+
+        // Configure the socket to listen on
+        $socket = new ServerSocket('[::]:' . getenv('SERVER_PORT'), $loop);
+
+        // Run the application
         $server = new IoServer(new HttpServer($ws), $socket, $loop);
         $server->run();
     }
@@ -188,7 +194,6 @@ class Application implements MessageComponentInterface
             $networkInterface->resetConnectionClients();
         }, $device->getNetworkInterfaces());
 
-        // One response per item
         foreach ($response->getAllOfType(Response::TYPE_DATA) as $item) {
             $connectedClient = new ConnectedClient();
 
