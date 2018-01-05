@@ -19,14 +19,14 @@ class Dashboard extends Component<Props, State> {
   }
 
   componentDidMount() {
-    this.rws = new ReconnectingWebSocket('ws://localhost:3000')
-    this.rws.onmessage = e => this.setState({ dashboard: Object.values(JSON.parse(e.data)) })
-    this.rws.onerror = e => this.setState({ error: 'WebSocket error' })
-    this.rws.onclose = e => !e.wasClean && this.setState({ error: `WebSocket error: ${e.code} ${e.reason}` })
+    this.ws = new ReconnectingWebSocket('ws://localhost:3000')
+    this.ws.onmessage = e => this.setState({ dashboard: Object.values(JSON.parse(e.data)) })
+    this.ws.onerror = e => this.setState({ error: 'WebSocket error' })
+    this.ws.onclose = e => !e.wasClean && this.setState({ error: `WebSocket error: ${e.code} ${e.reason}` })
   }
 
   componentWillUnmount() {
-    this.rws.close()
+    this.ws.close()
   }
 
   render () {
