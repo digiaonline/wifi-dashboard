@@ -32,7 +32,7 @@ class Device implements \JsonSerializable
     /**
      * @var NetworkInterfaceGroup[]
      */
-    private $networkInterfaceGroups = [];
+    private $networkInterfaceGroups;
 
     /**
      * Device constructor.

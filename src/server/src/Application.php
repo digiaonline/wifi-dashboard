@@ -115,7 +115,7 @@ class Application implements MessageComponentInterface
     /**
      * @inheritdoc
      */
-    public function onOpen(ConnectionInterface $conn)
+    public function onOpen(ConnectionInterface $conn): void
     {
         $this->clients->attach($conn);
     }
@@ -123,7 +123,7 @@ class Application implements MessageComponentInterface
     /**
      * @inheritdoc
      */
-    public function onMessage(ConnectionInterface $from, $msg)
+    public function onMessage(ConnectionInterface $from, $msg): void
     {
 
     }
@@ -131,7 +131,7 @@ class Application implements MessageComponentInterface
     /**
      * @inheritdoc
      */
-    public function onClose(ConnectionInterface $conn)
+    public function onClose(ConnectionInterface $conn): void
     {
         $this->clients->detach($conn);
     }
@@ -139,7 +139,7 @@ class Application implements MessageComponentInterface
     /**
      * @inheritdoc
      */
-    public function onError(ConnectionInterface $conn, \Exception $e)
+    public function onError(ConnectionInterface $conn, \Exception $e): void
     {
         $this->clients->detach($conn);
     }
