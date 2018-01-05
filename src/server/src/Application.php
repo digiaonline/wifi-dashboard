@@ -93,6 +93,7 @@ class Application implements MessageComponentInterface
             // Update statistics for all devices
             /** @var Device $device */
             foreach ($this->devices as $device) {
+                $this->resetConnectedClients($device);
                 $this->updateConnectedClients($device);
                 $this->updateInterfaceStatistics($device);
             }
@@ -181,6 +182,16 @@ class Application implements MessageComponentInterface
     /**
      * @param Device $device
      */
+    private function resetConnectedClients(Device $device): void
+    {
+        foreach ($device->getNetworkInterfaces() as $networkInterface) {
+            $networkInterface->resetConnectionClients();
+        }
+    }
+
+    /**
+     * @param Device $device
+     */
     private function updateConnectedClients(Device $device): void
     {
         /** @var Client $client */
@@ -188,11 +199,6 @@ class Application implements MessageComponentInterface
 
         $request  = new Request('/interface/wireless/registration-table/print');
         $response = $client->sendSync($request);
-
-        // Reset statistics for all interfaces
-        array_map(function (NetworkInterface $networkInterface) {
-            $networkInterface->resetConnectionClients();
-        }, $device->getNetworkInterfaces());
 
         foreach ($response->getAllOfType(Response::TYPE_DATA) as $item) {
             $connectedClient = new ConnectedClient();
