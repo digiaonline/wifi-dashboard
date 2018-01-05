@@ -10,7 +10,7 @@ class Dashboard implements \JsonSerializable
 {
 
     /**
-     * @var \SplObjectStorage
+     * @var Device[]
      */
     private $devices;
 
@@ -22,9 +22,9 @@ class Dashboard implements \JsonSerializable
     /**
      * Dashboard constructor.
      *
-     * @param \SplObjectStorage $devices
+     * @param Device[] $devices
      */
-    public function __construct(\SplObjectStorage $devices)
+    public function __construct(array $devices)
     {
         $this->devices     = $devices;
         $this->lastUpdated = new \DateTime();
@@ -35,14 +35,8 @@ class Dashboard implements \JsonSerializable
      */
     public function jsonSerialize()
     {
-        $devices = [];
-
-        foreach ($this->devices as $device) {
-            $devices[] = $device;
-        }
-
         return [
-            'devices'     => $devices,
+            'devices'     => $this->devices,
             'lastUpdated' => $this->lastUpdated,
         ];
     }

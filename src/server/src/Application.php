@@ -101,7 +101,7 @@ class Application implements MessageComponentInterface
             // Broadcast updates to all connected clients
             /** @var ConnectionInterface $client */
             foreach ($this->clients as $client) {
-                $dashboard = new Dashboard($this->devices);
+                $dashboard = new Dashboard($this->configuration->getDevices());
 
                 $client->send(json_encode($dashboard, JSON_PRETTY_PRINT));
             }
