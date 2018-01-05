@@ -1,0 +1,23 @@
+{
+    "name": "digiaonline/wifi-dashboard-api",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Sam Stenvall",
+            "email": "sam.stenvall@nordsoftware.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=7.1",
+        "pear2/net_routeros": "1.0.0b6",
+        "vlucas/phpdotenv": "^2.4",
+        "cboden/ratchet": "^0.4.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Digia\\WifiDashboard\\Server\\": "src/"
+        }
+    }
+}
