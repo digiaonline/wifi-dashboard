@@ -1,10 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Rubik:300,400,700');
+
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
-  height: 100vh;
+  background-color: #f7f7f7;
 }
 
 :global(#root) {
   height: 100vh;
+  font-family: 'Rubik', sans-serif;
 }

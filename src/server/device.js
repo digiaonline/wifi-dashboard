@@ -12,13 +12,13 @@ class Device {
    */
   getInterfaceString() {
     const interfaces = [];
-    
+
     this.interfaceGroups.forEach(function(interfaceGroup) {
       interfaceGroup.interfaces.forEach(function(iface) {
         interfaces.push(iface.name);
       });
     });
-    
+
     return interfaces.join(',');
   }
 }

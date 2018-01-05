@@ -1,5 +1,5 @@
 .component {
   display: grid;
   grid-template-rows: max-content;
-  grid-row-gap: 20px;
+  grid-row-gap: 40px;
 }

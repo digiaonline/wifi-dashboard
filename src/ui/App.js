@@ -1,9 +1,12 @@
+//@flow
+
 import React, { Component } from 'react'
 import Dashboard from './components/Dashboard/Dashboard'
-import logo from './assets/logo.png'
+import logo from './assets/digia-logo.png'
 import css from './App.css'
 
-class App extends Component {
+class App extends Component<> {
+  static defaultProps: {};
   render() {
     return (
       <div className={css.App}>
@@ -13,8 +16,8 @@ class App extends Component {
         </header>
         <Dashboard />
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
