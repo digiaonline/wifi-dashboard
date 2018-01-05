@@ -1,6 +1,6 @@
 # wifi-dashboard
 
-Self-contained dashboard interface for the office wifi
+Self-contained dashboard interface for the office network
 
 ## Requirements
 
@@ -23,9 +23,12 @@ Make sure you're either at the office or connected to Nord VPN before proceeding
 
 You can change the ports used by modifying your `.env` file.
 
+## Building
+
+Run `yarn build` to build a production build
+
 ## Technology
 
-* Bare-bones WebSocket server for communicating with MikroTik devices
-* Express for the web server
+* Bare-bones server for communicating with our MikroTik devices
 * WebSockets for broadcasting the dashboard data to connected clients
 * React for the front-end
