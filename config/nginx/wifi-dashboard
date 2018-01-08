@@ -1,0 +1,29 @@
+server {
+    listen 80;
+    listen [::]:80;
+    server_name wifi.dashboard;
+
+    root /home/pi/wifi-dashboard/build;
+    index index.html;
+    
+    gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/javascript text/x-js;
+
+    location / {
+        try_files $uri $uri/ /index.html = 404;
+    }
+    
+    location ~ /\. {
+        deny all;
+    }
+    
+    location ~* \.(js|css)$ { 
+        expires max; 
+    }
+
+    error_page 404 /404.html;
+
+    error_page 500 502 503 504 /50x.html;
+        location = /50x.html {
+        root /usr/share/nginx/html;
+    }
+}
