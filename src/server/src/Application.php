@@ -112,7 +112,8 @@ class Application implements MessageComponentInterface
         $ws->setStrictSubProtocolCheck(false);
 
         // Configure the socket to listen on
-        $socket = new ServerSocket('[::]:' . getenv('SERVER_PORT'), $loop);
+        $listenUri = sprintf('%s:%s', getenv('SERVER_LISTEN_ADDRESS'), getenv('SERVER_PORT'));
+        $socket    = new ServerSocket($listenUri, $loop);
 
         // Run the application
         $server = new IoServer(new HttpServer($ws), $socket, $loop);
