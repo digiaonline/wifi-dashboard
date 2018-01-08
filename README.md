@@ -9,6 +9,10 @@ Self-contained dashboard interface for the office network
 * PHP >= 7.1
 * Composer
 
+If you want to deploy the application you will also need:
+
+* Capistrano
+
 ## Installation
 
 Make sure you're either at the office or connected to Nord VPN before proceeding
@@ -28,8 +32,23 @@ You can change the ports used by modifying your `.env` file.
 
 Run `yarn build` to build a production build
 
+## Deploying
+
+* Make sure you're at the office or that you're connected to the VPN and have `10.5.0.201 wifi.dashboard` in your 
+`/etc/hosts` file
+* Run `cap production deploy`. Enter the password for the `pi` user when prompted. Beware that this will take many 
+minutes.
+
+### Advanced usage
+
+If you don't want to write the password every time you deploy, run `ssh-copy-id pi@wifi.dashboard` once. Enter the 
+password when prompted. After this you will no longer be prompted for the password during deployments. 
+
+The production version runs at `http://wifi.dashboard/`
+
 ## Technology
 
 * Bare-bones server for communicating with our MikroTik devices
 * WebSockets for broadcasting the dashboard data to connected clients
 * React for the front-end
+* Raspberry Pi as production host
