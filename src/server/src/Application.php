@@ -112,8 +112,7 @@ class Application implements MessageComponentInterface
         $ws->setStrictSubProtocolCheck(false);
 
         // Configure the socket to listen on
-        $listenUri = sprintf('%s:%s', getenv('SERVER_LISTEN_ADDRESS'), getenv('SERVER_PORT'));
-        $socket    = new ServerSocket($listenUri, $loop);
+        $socket = new ServerSocket($this->getServerListenUri(), $loop);
 
         // Run the application
         $server = new IoServer(new HttpServer($ws), $socket, $loop);
@@ -226,5 +225,13 @@ class Application implements MessageComponentInterface
         return implode(',', array_map(function (NetworkInterface $networkInterface) {
             return $networkInterface->getName();
         }, $device->getNetworkInterfaces()));
+    }
+
+    /**
+     * @return string
+     */
+    private function getServerListenUri(): string
+    {
+        return sprintf('%s:%s', getenv('SERVER_LISTEN_ADDRESS'), getenv('SERVER_LISTEN_PORT'));
     }
 }
