@@ -19,7 +19,7 @@ class Dashboard extends Component<Props, State> {
   }
 
   componentDidMount() {
-    this.ws = new ReconnectingWebSocket('ws://localhost:3000')
+    this.ws = new ReconnectingWebSocket(process.env.SERVER_ADDRESS)
     this.ws.onmessage = e => this.setState({ dashboard: Object.values(JSON.parse(e.data)) })
     this.ws.onerror = e => this.setState({ error: 'WebSocket error' })
     this.ws.onclose = e => !e.wasClean && this.setState({ error: `WebSocket error: ${e.code} ${e.reason}` })

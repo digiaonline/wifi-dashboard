@@ -259,11 +259,11 @@ module.exports = {
         minifyURLs: true,
       },
     }),
-    // Makes some environment variables available to the JS code, for example:
-    // if (process.env.NODE_ENV === 'production') { ... }. See `./env.js`.
-    // It is absolutely essential that NODE_ENV was set to production here.
-    // Otherwise React will be compiled in the very slow development mode.
-    new webpack.DefinePlugin(env.stringified),
+    // Makes some environment variables available to the JS code
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production'),
+      'process.env.SERVER_ADDRESS': JSON.stringify(process.env.SERVER_ADDRESS),
+    }),
     // Minify the code.
     new webpack.optimize.UglifyJsPlugin({
       compress: {
