@@ -8,7 +8,7 @@ User=pi
 Group=pi  
 Restart=always
 ExecStart=/usr/bin/yarn server >> /home/pi/wifi-dashboard.log 2>&1
-WorkingDirectory=/home/pi/wifi-dashboard
+WorkingDirectory=/home/pi/wifi-dashboard/current/
 
 [Install]
 WantedBy=multi-user.target

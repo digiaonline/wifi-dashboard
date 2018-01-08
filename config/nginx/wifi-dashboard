@@ -3,7 +3,7 @@ server {
     listen [::]:80;
     server_name wifi.dashboard;
 
-    root /home/pi/wifi-dashboard/build;
+    root /home/pi/wifi-dashboard/current/build;
     index index.html;
     
     gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/javascript text/x-js;
