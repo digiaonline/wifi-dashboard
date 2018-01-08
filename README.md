@@ -5,8 +5,9 @@ Self-contained dashboard interface for the office network
 ## Requirements
 
 * Node.js >= 6.x
-* PHP >= 7.1
 * Yarn
+* PHP >= 7.1
+* Composer
 
 ## Installation
 
