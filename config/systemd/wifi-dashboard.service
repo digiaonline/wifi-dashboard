@@ -1,0 +1,14 @@
+[Unit]
+Description=wifi-dashboard
+After=network.target
+After=syslog.target
+
+[Service]
+User=pi
+Group=pi  
+Restart=always
+ExecStart=/usr/bin/yarn server >> /home/pi/wifi-dashboard.log 2>&1
+WorkingDirectory=/home/pi/wifi-dashboard
+
+[Install]
+WantedBy=multi-user.target
