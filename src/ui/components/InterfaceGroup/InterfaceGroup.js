@@ -28,7 +28,7 @@ class InterfaceGroup extends Component<Props, State> {
 
   formatBitrate = (value: number) => {
     if (value < 1000) {
-      return `${value} bits`
+      return `${value} bit/s`
     } else if (value < 1000 * 1000) {
       return `${Math.round(value / 1000)} kbit/s`
     }
