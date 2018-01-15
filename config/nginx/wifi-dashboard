@@ -1,7 +1,7 @@
 server {
     listen 80;
     listen [::]:80;
-    server_name wifi.dashboard;
+    server_name wifi-dashboard.nordsoftware.fi;
 
     root /home/pi/wifi-dashboard/current/build;
     index index.html;

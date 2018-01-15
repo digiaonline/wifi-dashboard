@@ -34,17 +34,16 @@ Run `yarn build` to build a production build
 
 ## Deploying
 
-* Make sure you're at the office or that you're connected to the VPN and have `10.5.0.201 wifi.dashboard` in your 
-`/etc/hosts` file
+* Make sure you're at the office or that you're connected to the VPN
 * Run `cap production deploy`. Enter the password for the `pi` user when prompted. Beware that this will take many 
 minutes.
 
 ### Advanced usage
 
-If you don't want to write the password every time you deploy, run `ssh-copy-id pi@wifi.dashboard` once. Enter the 
-password when prompted. After this you will no longer be prompted for the password during deployments. 
+If you don't want to write the password every time you deploy, run `ssh-copy-id pi@wifi-dashboard.nordsoftware.fi` 
+once. Enter the password when prompted. After this you will no longer be prompted for the password during deployments. 
 
-The production version runs at `http://wifi.dashboard/`
+The production version runs at `http://wifi-dashboard.nordsoftware.fi/`
 
 ## Technology
 
