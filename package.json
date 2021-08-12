@@ -42,7 +42,7 @@
     "react": "^16.1.1",
     "react-bootstrap": "^0.31.5",
     "react-chartjs-2": "^2.6.4",
-    "react-dev-utils": "^4.2.1",
+    "react-dev-utils": "^11.0.4",
     "react-dom": "^16.1.1",
     "react-fontawesome": "^1.6.1",
     "reconnecting-websocket": "^3.2.2",
